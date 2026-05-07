@@ -43,7 +43,10 @@ class CreateusersActivity : AppCompatActivity() {
         // １－２．createButtonのクリックイベントリスナーを作成する
         createbutton.setOnClickListener {
             // １－２－１．入力項目が空白の時、エラーメッセージをトースト表示して処理を終了させる
-            if(){
+            if(userNameEdit.text.toString().isEmpty() ||
+                useridEdit.text.toString().isEmpty() ||
+                passwordEdit.text.toString().isEmpty() ||
+                repasswordEdit.text.toString().isEmpty()){
                 Toast.makeText(this,"すべての項目を入力してください", Toast.LENGTH_SHORT).show()
             }
 

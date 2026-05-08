@@ -9,6 +9,8 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import okhttp3.Call
+import okhttp3.Callback
 import okhttp3.MediaType
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
@@ -24,7 +26,7 @@ class CreateusersActivity : AppCompatActivity() {
         enableEdgeToEdge()
         /// 1-1 画面デザインで定義したオブジェクトを変数として宣言する。
 
-
+        setContentView(R.layout.activity_createusers)
         val createbutton: Button = findViewById(R.id.createButton)
         val canselbutton: Button= findViewById(R.id.cancelButton)
         val creteUserText: TextView = findViewById(R.id.CreateUserText)
@@ -32,9 +34,11 @@ class CreateusersActivity : AppCompatActivity() {
         val useridEdit: EditText = findViewById (R.id.userIdEdit)
         val passwordEdit: EditText = findViewById (R.id.passwordEdit)
         val repasswordEdit: EditText = findViewById (R.id.rePasswordEdit)
+        val textView = findViewById<TextView>(R.id.CreateUserText)
 
-        setContentView(R.layout.activity_createusers)
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
+
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
@@ -48,11 +52,14 @@ class CreateusersActivity : AppCompatActivity() {
                 passwordEdit.text.toString().isEmpty() ||
                 repasswordEdit.text.toString().isEmpty()){
                 Toast.makeText(this,"すべての項目を入力してください", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
             }
 
             // １－２－２．パスワードと確認パスワードの内容が違う時、エラーメッセージをトースト表示して処理を終了させる
-            if(){
-                Toast.makeText(this,"すべての項目を入力してください", Toast.LENGTH_SHORT).show()
+            if(passwordEdit.text.toString() !=
+                repasswordEdit.text.toString()){
+                Toast.makeText(this,"パスワードが一致しません", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
             }
 
             // １－２－３．ユーザ作成処理APIをリクエストしてユーザの追加を行う
@@ -64,8 +71,10 @@ class CreateusersActivity : AppCompatActivity() {
             val mediaType : MediaType = "application/json; charset=utf-8".toMediaType()
             // Bodyのデータ(APIに渡したいパラメータを設定)
             val requestBodyJson = JSONObject().apply {
-                put("email", xxxxxxxxxxxxxxxxxxxx)
-                put("password", xxxxxxxxxxxxxxxxxxxx)
+                put("email",useridEdit.text )
+                put("password", passwordEdit.text)
+                put("name", userNameEdit.text)
+                put("repassword", repasswordEdit.text)
             }
             // BodyのデータをAPIに送るためにRequestBody形式に加工
             val requestBody = requestBodyJson.toString().toRequestBody(mediaType)
@@ -78,10 +87,20 @@ class CreateusersActivity : AppCompatActivity() {
 
             // ↓↓↓↓↓↓↓↓↓　実際に通信してる処理　↓↓↓↓↓↓↓↓↓
             // リクエスト送信（非同期処理）
-            client.newCall(request!!).enqueue(object : Callback {
+            client.newCall(request).enqueue(object : Callback {
                 // リクエストが成功した場合の処理を実装
                 override fun onResponse(call: Call, response: Response) {
                     val body = response.body?.string()
+                    runOnUiThread {
+                        if (!response.isSuccessful) {
+                            Toast.makeText(
+                                this@CreateusersActivity,
+                                body ?: "エラーが発生しました",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                            return@runOnUiThread
+                        }
+                    }
                     println("レスポンスを受信しました: $body")
                     // postメソッドを使うことでUIを操作することができる。(runOnUiThreadメソッドでも可)
                     textView.post { textView.text = body }
@@ -95,10 +114,6 @@ class CreateusersActivity : AppCompatActivity() {
                 }
             })
             // ↑↑↑↑↑↑↑↑　実際に通信してる処理　↑↑↑↑↑↑↑↑
-        }
-
-        passwordEdit.setOnClickListener {
-            Toast.makeText(this,"パスワードが一致しません", Toast.LENGTH_SHORT).show()
         }
     }
 }

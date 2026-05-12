@@ -1,3 +1,12 @@
 <resources>
-    <string name="app_name">My Application</string>
+    <string name="app_name">Whisper</string>
+    <string name="login_title">&#x30ED;&#x30B0;&#x30A4;&#x30F3;</string>
+    <string name="login_email_hint">&#x30E1;&#x30FC;&#x30EB;&#x30A2;&#x30C9;&#x30EC;&#x30B9;</string>
+    <string name="login_password_hint">&#x30D1;&#x30B9;&#x30EF;&#x30FC;&#x30C9;</string>
+    <string name="login_button">&#x30ED;&#x30B0;&#x30A4;&#x30F3;</string>
+    <string name="create_user_button">&#x30E6;&#x30FC;&#x30B6;&#x4F5C;&#x6210;</string>
+    <string name="login_email_required">&#x30E1;&#x30FC;&#x30EB;&#x30A2;&#x30C9;&#x30EC;&#x30B9;&#x3092;&#x5165;&#x529B;&#x3057;&#x3066;&#x304F;&#x3060;&#x3055;&#x3044;</string>
+    <string name="login_email_invalid">&#x6B63;&#x3057;&#x3044;&#x30E1;&#x30FC;&#x30EB;&#x30A2;&#x30C9;&#x30EC;&#x30B9;&#x3092;&#x5165;&#x529B;&#x3057;&#x3066;&#x304F;&#x3060;&#x3055;&#x3044;</string>
+    <string name="login_password_required">&#x30D1;&#x30B9;&#x30EF;&#x30FC;&#x30C9;&#x3092;&#x5165;&#x529B;&#x3057;&#x3066;&#x304F;&#x3060;&#x3055;&#x3044;</string>
+    <string name="login_not_implemented_message">&#x30ED;&#x30B0;&#x30A4;&#x30F3;&#x6A5F;&#x80FD;&#x306F;&#x672A;&#x5B9F;&#x88C5;&#x3067;&#x3059;&#x3002;API&#x63A5;&#x7D9A;&#x5F8C;&#x306B;&#x6709;&#x52B9;&#x5316;&#x3057;&#x307E;&#x3059;&#x3002;</string>
 </resources>

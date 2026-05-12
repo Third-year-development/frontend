@@ -1,7 +1,9 @@
 package com.example.myapplication
 
-import android.os.Bundle
 import android.content.Intent
+import android.os.Bundle
+import android.util.Patterns
+import android.view.inputmethod.EditorInfo
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
@@ -21,29 +23,65 @@ class LoginActivity : AppCompatActivity() {
             insets
         }
 
-        val userIdEdit = findViewById<EditText>(R.id.userIdEdit)
+        val emailEdit = findViewById<EditText>(R.id.userIdEdit)
         val passwordEdit = findViewById<EditText>(R.id.passwordEdit)
         val loginButton = findViewById<Button>(R.id.loginButton)
         val createButton = findViewById<Button>(R.id.createButton)
 
         loginButton.setOnClickListener {
-            val userId = userIdEdit.text.toString().trim()
-            val password = passwordEdit.text.toString()
-
-            if (userId.isEmpty() || password.isEmpty()) {
-                Toast.makeText(
-                    this,
-                    "\u30e6\u30fc\u30b6\u30fcID\u3068\u30d1\u30b9\u30ef\u30fc\u30c9\u3092\u5165\u529b\u3057\u3066\u304f\u3060\u3055\u3044",
-                    Toast.LENGTH_SHORT
-                ).show()
-                return@setOnClickListener
-            }
-
-            startActivity(Intent(this, TimelineActivity::class.java))
+            attemptLogin(emailEdit, passwordEdit)
         }
 
         createButton.setOnClickListener {
             startActivity(Intent(this, CreateUserActivity::class.java))
         }
+
+        passwordEdit.setOnEditorActionListener { _, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                attemptLogin(emailEdit, passwordEdit)
+                true
+            } else {
+                false
+            }
+        }
+    }
+
+    private fun attemptLogin(emailEdit: EditText, passwordEdit: EditText) {
+        val email = emailEdit.text.toString().trim()
+        val password = passwordEdit.text.toString()
+        var hasError = false
+
+        if (email.isEmpty()) {
+            emailEdit.error = getString(R.string.login_email_required)
+            hasError = true
+        } else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            emailEdit.error = getString(R.string.login_email_invalid)
+            hasError = true
+        } else {
+            emailEdit.error = null
+        }
+
+        if (password.isEmpty()) {
+            passwordEdit.error = getString(R.string.login_password_required)
+            hasError = true
+        } else {
+            passwordEdit.error = null
+        }
+
+        if (hasError) {
+            return
+        }
+
+        // API integration is not implemented on this branch yet, so block navigation here.
+        Toast.makeText(
+            this,
+            getString(R.string.login_not_implemented_message),
+            Toast.LENGTH_SHORT
+        ).show()
+    }
+
+    private fun navigateToTimeline() {
+        startActivity(Intent(this, TimelineActivity::class.java))
+        finish()
     }
 }

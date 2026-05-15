@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/timeline"
+        android:title="@string/menu_timeline_title"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/search"
+        android:title="@string/menu_search_title"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/whisper"
+        android:title="@string/menu_whisper_title"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/myprofile"
+        android:title="@string/menu_profile_title"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/profileedit"
+        android:title="@string/menu_profile_edit_title"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/logout"
+        android:title="@string/menu_logout_title"
+        app:showAsAction="never" />
+
+</menu>

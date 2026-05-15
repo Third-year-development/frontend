@@ -15,4 +15,14 @@
     <string name="create_user_repassword_required">&#x78BA;&#x8A8D;&#x7528;&#x30D1;&#x30B9;&#x30EF;&#x30FC;&#x30C9;&#x3092;&#x5165;&#x529B;&#x3057;&#x3066;&#x304F;&#x3060;&#x3055;&#x3044;</string>
     <string name="create_user_password_mismatch">&#x30D1;&#x30B9;&#x30EF;&#x30FC;&#x30C9;&#x304C;&#x4E00;&#x81F4;&#x3057;&#x307E;&#x305B;&#x3093;</string>
     <string name="create_user_not_implemented_message">&#x30E6;&#x30FC;&#x30B6;&#x4F5C;&#x6210;&#x6A5F;&#x80FD;&#x306F;&#x672A;&#x5B9F;&#x88C5;&#x3067;&#x3059;&#x3002;API&#x63A5;&#x7D9A;&#x5F8C;&#x306B;&#x6709;&#x52B9;&#x5316;&#x3057;&#x307E;&#x3059;&#x3002;</string>
+    <string name="overflow_screen_title">Overflow Menu</string>
+    <string name="overflow_screen_description">This screen previews the shared overflow menu entries for Android.</string>
+    <string name="menu_timeline_title">TimeLine</string>
+    <string name="menu_search_title">Search</string>
+    <string name="menu_whisper_title">Whisper</string>
+    <string name="menu_profile_title">Profile</string>
+    <string name="menu_profile_edit_title">UserEdit</string>
+    <string name="menu_logout_title">Logout</string>
+    <string name="menu_navigation_placeholder">%1$s screen is not available yet.</string>
+    <string name="menu_logout_message">Logout action is not connected yet.</string>
 </resources>

@@ -137,15 +137,15 @@ class UserEditActivity : AppCompatActivity() {
                     }
                     return
                 }
-                runOnUiThread {
-                    startActivity(
-                        Intent(
-                            this@UserEditActivity,
-                            UserInfoActivity::class.java
-                        )
-                    )
-                    finish()
-                }
+//                runOnUiThread {
+//                    startActivity(
+//                        Intent(
+//                            this@UserEditActivity,
+//                            UserInfoActivity::class.java
+//                        )
+//                    )
+//                    finish()
+//                }
             }
             override fun onFailure(call: Call, e: IOException){
                 runOnUiThread {

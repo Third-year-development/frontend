@@ -1,3 +1,36 @@
 <resources>
-    <string name="app_name">My Application</string>
+    <string name="app_name">WhisperClient</string>
+    <string name="login_title">Login</string>
+    <string name="user_create_title">User Create</string>
+    <string name="profile_edit_title">User Edit</string>
+    <string name="email_user_id">E-mail(UserId)</string>
+    <string name="user_id">UserId</string>
+    <string name="user_name">UserName</string>
+    <string name="password">Password</string>
+    <string name="re_password">Re:Password</string>
+    <string name="profile">Profile</string>
+    <string name="login">Login</string>
+    <string name="create_user">Create User</string>
+    <string name="create">create</string>
+    <string name="change">Change</string>
+    <string name="cancel">cancel</string>
+    <string name="follow">Follow</string>
+    <string name="follower">Follower</string>
+    <string name="good">Good</string>
+    <string name="whisper">Whisper</string>
+    <string name="sample_user_name">UserName</string>
+    <string name="sample_profile">Profile text is displayed here.</string>
+    <string name="sample_whisper">Whisper text is displayed here.</string>
+    <string name="fwcnt_label">fwcnt</string>
+    <string name="fwrcnt_label">fwrcnt</string>
+    <string name="gcnt_label">gcnt</string>
+    <string name="menu_timeline">TimeLine</string>
+    <string name="menu_search">Search</string>
+    <string name="menu_whisper">Whisper</string>
+    <string name="menu_profile">Profile</string>
+    <string name="menu_user_edit">UserEdit</string>
+    <string name="menu_logout">Logout</string>
+    <string name="login_not_connected">ログインAPI接続は未実装です</string>
+    <string name="user_create_not_connected">ユーザ作成API接続は未実装です</string>
+    <string name="profile_edit_not_connected">プロフィール編集API接続は未実装です</string>
 </resources>

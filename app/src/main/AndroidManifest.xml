@@ -12,7 +12,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication">
         <activity
-            android:name=".CreateUserActivity"
+            android:name=".UserEditActivity"
+            android:exported="false" />
+        <activity
+            android:name=".OverflowMenuActivity"
+            android:exported="false" />
+        <activity
+            android:name=".CreateusersActivity"
+            android:exported="false" />
+        <activity
+            android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

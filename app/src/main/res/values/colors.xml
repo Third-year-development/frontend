@@ -2,4 +2,11 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="whisper_primary">#3F51B5</color>
+    <color name="whisper_primary_dark">#303F9F</color>
+    <color name="whisper_surface">#FFF8FBFF</color>
+    <color name="whisper_card">#FFFFFFFF</color>
+    <color name="whisper_text_primary">#FF1D1B20</color>
+    <color name="whisper_text_secondary">#FF5F5B66</color>
+    <color name="whisper_line">#FFD8DCE8</color>
 </resources>

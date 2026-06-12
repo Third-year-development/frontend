@@ -11,6 +11,7 @@
         android:layout_height="wrap_content"
         android:clickable="true"
         android:focusable="true"
+        android:foreground="?attr/selectableItemBackground"
         app:cardCornerRadius="8dp"
         app:cardElevation="4dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -30,6 +31,7 @@
                 android:src="@mipmap/ic_launcher"
                 android:clickable="true"
                 android:focusable="true"
+                android:background="?attr/selectableItemBackgroundBorderless"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -71,7 +73,7 @@
                     android:id="@+id/likeButton"
                     android:layout_width="32dp"
                     android:layout_height="32dp"
-                    android:background="@android:color/transparent"
+                    android:background="?attr/selectableItemBackgroundBorderless"
                     android:padding="4dp"
                     android:src="@android:drawable/btn_star_big_off" />
 

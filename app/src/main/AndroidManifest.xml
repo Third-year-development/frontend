@@ -12,13 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication">
         <activity
-            android:name=".UserEditActivity"
-            android:exported="false" />
-        <activity
-            android:name=".OverflowMenuActivity"
-            android:exported="false" />
-        <activity
-            android:name=".CreateusersActivity"
+            android:name=".SearchActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

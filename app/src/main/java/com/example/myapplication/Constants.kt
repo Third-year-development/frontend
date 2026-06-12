@@ -26,8 +26,9 @@ object Constants {
     const val ENDPOINT_USER_FOLLOWING = "$BASE_URL/user/following" // GET /{id}
     const val ENDPOINT_USER_FOLLOWERS = "$BASE_URL/user/followers" // GET /{id}
 
-    // ユーザのささやき一覧
+    // ユーザのささやき一覧・いいね一覧
     const val ENDPOINT_USER_WHISPERS = "$BASE_URL/user/whispers" // GET /{id}
+    const val ENDPOINT_USER_LIKES = "$BASE_URL/user/likes"       // GET /{id}
 
     // 検索
     const val ENDPOINT_SEARCH_USERS = "$BASE_URL/search/users"       // GET /{keyword}

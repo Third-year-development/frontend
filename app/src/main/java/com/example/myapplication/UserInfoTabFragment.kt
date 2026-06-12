@@ -22,6 +22,7 @@ class UserInfoTabFragment : Fragment() {
         const val TAB_WHISPERS = 0
         const val TAB_FOLLOWING = 1
         const val TAB_FOLLOWERS = 2
+        const val TAB_LIKES = 3
 
         private const val ARG_USER_ID = "userId"
         private const val ARG_TAB = "tab"
@@ -60,6 +61,7 @@ class UserInfoTabFragment : Fragment() {
             TAB_WHISPERS -> loadWhispers(recyclerView, emptyText, loginUserId)
             TAB_FOLLOWING -> loadFollowList(recyclerView, emptyText, Constants.ENDPOINT_USER_FOLLOWING)
             TAB_FOLLOWERS -> loadFollowList(recyclerView, emptyText, Constants.ENDPOINT_USER_FOLLOWERS)
+            TAB_LIKES -> loadLikedWhispers(recyclerView, emptyText, loginUserId)
         }
     }
 
@@ -122,6 +124,40 @@ class UserInfoTabFragment : Fragment() {
                         emptyText.visibility = View.GONE
                     }
                     recyclerView.adapter = UserAdapter(list)
+                }
+            }
+            override fun onFailure(call: Call, e: IOException) {}
+        })
+    }
+
+    private fun loadLikedWhispers(recyclerView: RecyclerView, emptyText: TextView, loginUserId: String) {
+        ApiClient.get(requireContext(), "${Constants.ENDPOINT_USER_LIKES}/$targetUserId", object : Callback {
+            override fun onResponse(call: Call, response: Response) {
+                if (!response.isSuccessful) return
+                val body = response.body?.string() ?: return
+                val root = JSONObject(body)
+                val arr = root.optJSONArray("whisper") ?: JSONArray()
+                val list = TimelineActivity.parseWhispers(arr)
+                requireActivity().runOnUiThread {
+                    if (list.isEmpty()) {
+                        emptyText.visibility = View.VISIBLE
+                        emptyText.text = "いいねした投稿はまだありません"
+                    } else {
+                        emptyText.visibility = View.GONE
+                    }
+                    recyclerView.adapter = WhisperAdapter(
+                        whisperList = list,
+                        loginUserId = loginUserId,
+                        onLikeClick = { item -> likeWhisper(item, recyclerView, loginUserId) },
+                        onUserClick = { item ->
+                            startActivity(Intent(requireContext(), UserInfoActivity::class.java).apply {
+                                putExtra("userId", item.userId)
+                            })
+                        },
+                        onWhisperClick = { item ->
+                            startActivity(item.toDetailIntent(requireContext()))
+                        }
+                    )
                 }
             }
             override fun onFailure(call: Call, e: IOException) {}

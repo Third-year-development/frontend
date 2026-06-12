@@ -35,49 +35,65 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/toolbar">
 
+            <!-- アバター (左上) -->
             <ImageView
                 android:id="@+id/profileImage"
-                android:layout_width="72dp"
-                android:layout_height="72dp"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
                 android:scaleType="centerCrop"
                 android:src="@mipmap/ic_launcher"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
+            <!-- フォローボタン (右上・Twitter と同じ位置) -->
+            <Button
+                android:id="@+id/followButton"
+                style="?attr/materialButtonOutlinedStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="36dp"
+                android:text="@string/user_info_follow_button"
+                android:textSize="14sp"
+                android:paddingHorizontal="20dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:visibility="gone" />
+
+            <!-- 名前 (アバター下) -->
             <TextView
                 android:id="@+id/userNameText"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
+                android:layout_marginTop="8dp"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/profileImage"
-                app:layout_constraintTop_toTopOf="@id/profileImage" />
-
-            <TextView
-                android:id="@+id/userIdText"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
-                android:layout_marginTop="2dp"
-                android:textSize="13sp"
-                android:textColor="?attr/colorOnSurfaceVariant"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/profileImage"
-                app:layout_constraintTop_toBottomOf="@id/userNameText" />
-
-            <TextView
-                android:id="@+id/profileText"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/profileImage" />
 
-            <!-- フォロー数・フォロワー数 (ラベルの隣に数字) -->
+            <!-- メール/ID -->
+            <TextView
+                android:id="@+id/userIdText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:textSize="13sp"
+                android:textColor="?attr/colorOnSurfaceVariant"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/userNameText" />
+
+            <!-- 自己紹介 -->
+            <TextView
+                android:id="@+id/profileText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/userIdText" />
+
+            <!-- フォロー数・フォロワー数 -->
             <TextView
                 android:id="@+id/followCntText"
                 android:layout_width="wrap_content"
@@ -121,16 +137,6 @@
                 android:textColor="?attr/colorOnSurfaceVariant"
                 app:layout_constraintBaseline_toBaselineOf="@id/followCntText"
                 app:layout_constraintStart_toEndOf="@id/followerCntText" />
-
-            <Button
-                android:id="@+id/followButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="@string/user_info_follow_button"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/followCntText" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

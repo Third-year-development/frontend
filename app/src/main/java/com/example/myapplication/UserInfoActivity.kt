@@ -60,18 +60,15 @@ class UserInfoActivity : BaseActivity() {
             insets
         }
 
-        // 自分のプロフィールならフォローボタン非表示
-        if (targetUserId == loginUserId) followButton.visibility = View.GONE
-
         followButton.setOnClickListener { toggleFollow() }
 
-        // ViewPager2 + タブ設定（タイトルはAPI後に動的更新）
         viewPager.adapter = UserInfoPagerAdapter(this, targetUserId)
         TabLayoutMediator(tabLayout, viewPager) { tab, position ->
             tab.text = when (position) {
                 0 -> getString(R.string.user_info_tab_whispers)
                 1 -> getString(R.string.user_info_tab_follow, followCount)
-                else -> getString(R.string.user_info_tab_follower, followerCount)
+                2 -> getString(R.string.user_info_tab_follower, followerCount)
+                else -> getString(R.string.user_info_tab_likes)
             }
         }.attach()
 
@@ -87,6 +84,8 @@ class UserInfoActivity : BaseActivity() {
                 val user = root.optJSONObject("userprofile") ?: root
                 followCount = user.optInt("follows_count", 0)
                 followerCount = user.optInt("followers_count", 0)
+                isFollowing = root.optBoolean("is_following", false)
+
                 runOnUiThread {
                     userNameText.text = user.optString("name", "")
                     userIdText.text = user.optString("email", "")
@@ -94,6 +93,13 @@ class UserInfoActivity : BaseActivity() {
                     profileText.text = profile?.optString("profile", "") ?: ""
                     followCntText.text = followCount.toString()
                     followerCntText.text = followerCount.toString()
+
+                    // 他ユーザの場合のみフォローボタンを表示
+                    if (targetUserId != loginUserId) {
+                        followButton.visibility = View.VISIBLE
+                        updateFollowButtonState()
+                    }
+
                     // タブラベルにカウントを反映
                     tabLayout.getTabAt(1)?.text = getString(R.string.user_info_tab_follow, followCount)
                     tabLayout.getTabAt(2)?.text = getString(R.string.user_info_tab_follower, followerCount)
@@ -107,6 +113,13 @@ class UserInfoActivity : BaseActivity() {
         })
     }
 
+    private fun updateFollowButtonState() {
+        followButton.text = if (isFollowing)
+            getString(R.string.user_info_unfollow_button)
+        else
+            getString(R.string.user_info_follow_button)
+    }
+
     private fun toggleFollow() {
         val newFlag = !isFollowing
         val json = JSONObject().apply {
@@ -117,12 +130,7 @@ class UserInfoActivity : BaseActivity() {
             override fun onResponse(call: Call, response: Response) {
                 if (!response.isSuccessful) return
                 isFollowing = newFlag
-                runOnUiThread {
-                    followButton.text = if (isFollowing)
-                        getString(R.string.user_info_unfollow_button)
-                    else
-                        getString(R.string.user_info_follow_button)
-                }
+                runOnUiThread { updateFollowButtonState() }
             }
             override fun onFailure(call: Call, e: IOException) {}
         })

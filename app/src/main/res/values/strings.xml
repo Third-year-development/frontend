@@ -51,6 +51,7 @@
     <string name="user_info_tab_whispers">ささやき</string>
     <string name="user_info_tab_follow">フォロー %d</string>
     <string name="user_info_tab_follower">フォロワー %d</string>
+    <string name="user_info_tab_likes">いいね</string>
 
     <!-- Search -->
     <string name="search_title">検索</string>

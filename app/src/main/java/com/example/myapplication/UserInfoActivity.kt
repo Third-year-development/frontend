@@ -1,6 +1,5 @@
 package com.example.myapplication
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
@@ -9,8 +8,9 @@ import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager2.widget.ViewPager2
+import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayoutMediator
 import okhttp3.Call
 import okhttp3.Callback
 import okhttp3.Response
@@ -24,11 +24,15 @@ class UserInfoActivity : BaseActivity() {
     private lateinit var followCntText: TextView
     private lateinit var followerCntText: TextView
     private lateinit var followButton: Button
-    private lateinit var userWhisperRecycle: RecyclerView
+    private lateinit var tabLayout: TabLayout
+    private lateinit var viewPager: ViewPager2
 
     private lateinit var targetUserId: String
     private lateinit var loginUserId: String
     private var isFollowing = false
+
+    private var followCount = 0
+    private var followerCount = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,9 +51,8 @@ class UserInfoActivity : BaseActivity() {
         followCntText = findViewById(R.id.followCntText)
         followerCntText = findViewById(R.id.followerCntText)
         followButton = findViewById(R.id.followButton)
-        userWhisperRecycle = findViewById(R.id.userWhisperRecycle)
-
-        userWhisperRecycle.layoutManager = LinearLayoutManager(this)
+        tabLayout = findViewById(R.id.userInfoTabLayout)
+        viewPager = findViewById(R.id.userInfoViewPager)
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -60,40 +63,40 @@ class UserInfoActivity : BaseActivity() {
         // 自分のプロフィールならフォローボタン非表示
         if (targetUserId == loginUserId) followButton.visibility = View.GONE
 
-        followCntText.setOnClickListener {
-            startActivity(Intent(this, FollowListActivity::class.java).apply {
-                putExtra("userId", targetUserId)
-                putExtra("listType", "follow")
-            })
-        }
-        followerCntText.setOnClickListener {
-            startActivity(Intent(this, FollowListActivity::class.java).apply {
-                putExtra("userId", targetUserId)
-                putExtra("listType", "follower")
-            })
-        }
-
         followButton.setOnClickListener { toggleFollow() }
 
+        // ViewPager2 + タブ設定（タイトルはAPI後に動的更新）
+        viewPager.adapter = UserInfoPagerAdapter(this, targetUserId)
+        TabLayoutMediator(tabLayout, viewPager) { tab, position ->
+            tab.text = when (position) {
+                0 -> getString(R.string.user_info_tab_whispers)
+                1 -> getString(R.string.user_info_tab_follow, followCount)
+                else -> getString(R.string.user_info_tab_follower, followerCount)
+            }
+        }.attach()
+
         loadUserInfo()
-        loadUserWhispers()
     }
 
     private fun loadUserInfo() {
-        // GET /api/v1/users/{id} → {"userprofile": {...}}
         ApiClient.get(this, "${Constants.ENDPOINT_GET_USER}/$targetUserId", object : Callback {
             override fun onResponse(call: Call, response: Response) {
                 if (!response.isSuccessful) return
                 val body = response.body?.string() ?: return
                 val root = JSONObject(body)
                 val user = root.optJSONObject("userprofile") ?: root
+                followCount = user.optInt("follows_count", 0)
+                followerCount = user.optInt("followers_count", 0)
                 runOnUiThread {
                     userNameText.text = user.optString("name", "")
                     userIdText.text = user.optString("email", "")
                     val profile = user.optJSONObject("profile")
                     profileText.text = profile?.optString("profile", "") ?: ""
-                    followCntText.text = user.optInt("follows_count", 0).toString()
-                    followerCntText.text = user.optInt("followers_count", 0).toString()
+                    followCntText.text = followCount.toString()
+                    followerCntText.text = followerCount.toString()
+                    // タブラベルにカウントを反映
+                    tabLayout.getTabAt(1)?.text = getString(R.string.user_info_tab_follow, followCount)
+                    tabLayout.getTabAt(2)?.text = getString(R.string.user_info_tab_follower, followerCount)
                 }
             }
             override fun onFailure(call: Call, e: IOException) {
@@ -104,37 +107,8 @@ class UserInfoActivity : BaseActivity() {
         })
     }
 
-    private fun loadUserWhispers() {
-        // GET /api/v1/user/whispers/{id} → {"user_line": {...}, "whisper": [...]}
-        ApiClient.get(this, "${Constants.ENDPOINT_USER_WHISPERS}/$targetUserId", object : Callback {
-            override fun onResponse(call: Call, response: Response) {
-                if (!response.isSuccessful) return
-                val body = response.body?.string() ?: return
-                val root = JSONObject(body)
-                val jsonArray = root.optJSONArray("whisper") ?: return
-                val list = TimelineActivity.parseWhispers(jsonArray)
-                runOnUiThread {
-                    userWhisperRecycle.adapter = WhisperAdapter(
-                        list, loginUserId,
-                        onLikeClick = {},
-                        onUserClick = { item ->
-                            startActivity(Intent(this@UserInfoActivity, UserInfoActivity::class.java).apply {
-                                putExtra("userId", item.userId)
-                            })
-                        },
-                        onWhisperClick = { item ->
-                            startActivity(item.toDetailIntent(this@UserInfoActivity))
-                        }
-                    )
-                }
-            }
-            override fun onFailure(call: Call, e: IOException) {}
-        })
-    }
-
     private fun toggleFollow() {
         val newFlag = !isFollowing
-        // POST /api/v1/followcheck → {follow_user_id, following}
         val json = JSONObject().apply {
             put("follow_user_id", targetUserId.toIntOrNull() ?: 0)
             put("following", newFlag)

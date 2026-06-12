@@ -7,136 +7,154 @@
     android:layout_height="match_parent"
     tools:context=".UserInfoActivity">
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/main"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorSurface"
             app:popupTheme="@style/ThemeOverlay.Material3.Light"
-            app:title="@string/user_info_tab_whispers" />
+            app:title="@string/user_info_tab_whispers"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="?attr/actionBarSize">
+        <!-- プロフィールヘッダー -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/profileHeader"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="16dp"
+            android:paddingTop="12dp"
+            android:paddingBottom="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/toolbar">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
+            <ImageView
+                android:id="@+id/profileImage"
+                android:layout_width="72dp"
+                android:layout_height="72dp"
+                android:scaleType="centerCrop"
+                android:src="@mipmap/ic_launcher"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/userNameText"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:paddingHorizontal="16dp"
-                android:paddingTop="16dp"
-                android:paddingBottom="16dp">
+                android:layout_marginStart="12dp"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/profileImage"
+                app:layout_constraintTop_toTopOf="@id/profileImage" />
 
-                <ImageView
-                    android:id="@+id/profileImage"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    android:scaleType="centerCrop"
-                    android:src="@mipmap/ic_launcher"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+            <TextView
+                android:id="@+id/userIdText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="2dp"
+                android:textSize="13sp"
+                android:textColor="?attr/colorOnSurfaceVariant"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/profileImage"
+                app:layout_constraintTop_toBottomOf="@id/userNameText" />
 
-                <TextView
-                    android:id="@+id/userNameText"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/profileImage"
-                    app:layout_constraintTop_toTopOf="@id/profileImage" />
+            <TextView
+                android:id="@+id/profileText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/profileImage" />
 
-                <TextView
-                    android:id="@+id/userIdText"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="4dp"
-                    android:textSize="14sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/profileImage"
-                    app:layout_constraintTop_toBottomOf="@id/userNameText" />
+            <!-- フォロー数・フォロワー数 (ラベルの隣に数字) -->
+            <TextView
+                android:id="@+id/followCntText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/profileText"
+                tools:text="12" />
 
-                <TextView
-                    android:id="@+id/profileText"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:textSize="14sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/profileImage" />
+            <TextView
+                android:id="@+id/followLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:text="@string/user_info_follow"
+                android:textSize="14sp"
+                android:textColor="?attr/colorOnSurfaceVariant"
+                app:layout_constraintBaseline_toBaselineOf="@id/followCntText"
+                app:layout_constraintStart_toEndOf="@id/followCntText" />
 
-                <TextView
-                    android:id="@+id/followLabel"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
-                    android:text="@string/user_info_follow"
-                    android:textSize="14sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/profileText" />
+            <TextView
+                android:id="@+id/followerCntText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintBaseline_toBaselineOf="@id/followCntText"
+                app:layout_constraintStart_toEndOf="@id/followLabel"
+                tools:text="34" />
 
-                <TextView
-                    android:id="@+id/followCntText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="4dp"
-                    android:textSize="14sp"
-                    android:textStyle="bold"
-                    app:layout_constraintBaseline_toBaselineOf="@id/followLabel"
-                    app:layout_constraintStart_toEndOf="@id/followLabel" />
+            <TextView
+                android:id="@+id/followerLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:text="@string/user_info_follower"
+                android:textSize="14sp"
+                android:textColor="?attr/colorOnSurfaceVariant"
+                app:layout_constraintBaseline_toBaselineOf="@id/followCntText"
+                app:layout_constraintStart_toEndOf="@id/followerCntText" />
 
-                <TextView
-                    android:id="@+id/followerLabel"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="24dp"
-                    android:text="@string/user_info_follower"
-                    android:textSize="14sp"
-                    app:layout_constraintBaseline_toBaselineOf="@id/followLabel"
-                    app:layout_constraintStart_toEndOf="@id/followCntText" />
+            <Button
+                android:id="@+id/followButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/user_info_follow_button"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/followCntText" />
 
-                <TextView
-                    android:id="@+id/followerCntText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="4dp"
-                    android:textSize="14sp"
-                    android:textStyle="bold"
-                    app:layout_constraintBaseline_toBaselineOf="@id/followLabel"
-                    app:layout_constraintStart_toEndOf="@id/followerLabel" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <Button
-                    android:id="@+id/followButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
-                    android:text="@string/user_info_follow_button"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/followLabel" />
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/userInfoTabLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="?attr/colorSurface"
+            app:tabGravity="fill"
+            app:tabMode="fixed"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/profileHeader" />
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/userWhisperRecycle"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:nestedScrollingEnabled="false"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/followButton" />
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/userInfoViewPager"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/userInfoTabLayout" />
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </ScrollView>
-
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/navView"

@@ -104,11 +104,24 @@ class TimelineFragment : Fragment() {
     }
 
     private fun toggleRetweet(item: WhisperRowData) {
-        ApiClient.post(requireContext(), "${Constants.ENDPOINT_RETWEET}/${item.whisperId}/retweet", JSONObject(), object : Callback {
+        val ctx = context ?: return
+        ApiClient.post(ctx, "${Constants.ENDPOINT_RETWEET}/${item.whisperId}/retweet", JSONObject(), object : Callback {
             override fun onResponse(call: Call, response: Response) {
-                if (response.isSuccessful) activity?.runOnUiThread { loadTimeline() }
+                val code = response.code
+                val bodyStr = response.body?.string() ?: ""
+                activity?.runOnUiThread {
+                    if (response.isSuccessful) {
+                        loadTimeline()
+                    } else {
+                        Toast.makeText(ctx, "RT失敗 ($code): $bodyStr", Toast.LENGTH_LONG).show()
+                    }
+                }
             }
-            override fun onFailure(call: Call, e: IOException) {}
+            override fun onFailure(call: Call, e: IOException) {
+                activity?.runOnUiThread {
+                    Toast.makeText(ctx, "RT通信エラー: ${e.message}", Toast.LENGTH_LONG).show()
+                }
+            }
         })
     }
 

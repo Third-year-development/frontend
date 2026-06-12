@@ -46,6 +46,7 @@
     <!-- User Info -->
     <string name="user_info_follow">フォロー</string>
     <string name="user_info_follower">フォロワー</string>
+    <string name="user_info_follower_label">フォロワー</string>
     <string name="user_info_follow_button">フォロー</string>
     <string name="user_info_unfollow_button">フォロー中</string>
     <string name="user_info_tab_whispers">ささやき</string>

@@ -29,6 +29,7 @@
         <activity android:name=".SearchActivity" android:exported="false" />
         <activity android:name=".UserEditActivity" android:exported="false" />
         <activity android:name=".FollowListActivity" android:exported="false" />
+        <activity android:name=".FollowFollowerActivity" android:exported="false" />
         <activity android:name=".WhisperDetailActivity" android:exported="false" />
     </application>
 

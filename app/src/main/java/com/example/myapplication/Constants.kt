@@ -19,6 +19,9 @@ object Constants {
     const val ENDPOINT_POST_WHISPER = "$BASE_URL/whispers"
     const val ENDPOINT_LIKE = "$BASE_URL/likecheck"
 
+    // リツイート (POST /{id}/retweet)
+    const val ENDPOINT_RETWEET = "$BASE_URL/whispers"
+
     // フォロー
     const val ENDPOINT_FOLLOW = "$BASE_URL/followcheck"
     const val ENDPOINT_FOLLOWING = "$BASE_URL/following"

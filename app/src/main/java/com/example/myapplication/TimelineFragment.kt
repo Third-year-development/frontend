@@ -69,6 +69,7 @@ class TimelineFragment : Fragment() {
                     recyclerView.adapter = WhisperAdapter(
                         whisperList, loginUserId,
                         onLikeClick = { item -> toggleLike(item, loginUserId) },
+                        onRetweetClick = { item -> toggleRetweet(item) },
                         onUserClick = { item ->
                             startActivity(Intent(requireContext(), UserInfoActivity::class.java).apply {
                                 putExtra("userId", item.userId)
@@ -95,6 +96,15 @@ class TimelineFragment : Fragment() {
             put("liked", !item.isLiked)
         }
         ApiClient.post(requireContext(), Constants.ENDPOINT_LIKE, json, object : Callback {
+            override fun onResponse(call: Call, response: Response) {
+                if (response.isSuccessful) activity?.runOnUiThread { loadTimeline() }
+            }
+            override fun onFailure(call: Call, e: IOException) {}
+        })
+    }
+
+    private fun toggleRetweet(item: WhisperRowData) {
+        ApiClient.post(requireContext(), "${Constants.ENDPOINT_RETWEET}/${item.whisperId}/retweet", JSONObject(), object : Callback {
             override fun onResponse(call: Call, response: Response) {
                 if (response.isSuccessful) activity?.runOnUiThread { loadTimeline() }
             }

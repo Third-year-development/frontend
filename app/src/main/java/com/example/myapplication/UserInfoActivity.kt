@@ -1,5 +1,6 @@
 package com.example.myapplication
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
@@ -61,6 +62,26 @@ class UserInfoActivity : BaseActivity() {
         }
 
         followButton.setOnClickListener { toggleFollow() }
+
+        // フォロー数・フォロワー数タップ → フォロー/フォロワー一覧画面
+        val followClickListener = android.view.View.OnClickListener {
+            startActivity(Intent(this, FollowFollowerActivity::class.java).apply {
+                putExtra("userId", targetUserId)
+                putExtra("startTab", 0)
+                putExtra("userName", userNameText.text.toString())
+            })
+        }
+        val followerClickListener = android.view.View.OnClickListener {
+            startActivity(Intent(this, FollowFollowerActivity::class.java).apply {
+                putExtra("userId", targetUserId)
+                putExtra("startTab", 1)
+                putExtra("userName", userNameText.text.toString())
+            })
+        }
+        followCntText.setOnClickListener(followClickListener)
+        findViewById<android.widget.TextView>(R.id.followLabel).setOnClickListener(followClickListener)
+        followerCntText.setOnClickListener(followerClickListener)
+        findViewById<android.widget.TextView>(R.id.followerLabel).setOnClickListener(followerClickListener)
 
         viewPager.adapter = UserInfoPagerAdapter(this, targetUserId)
         TabLayoutMediator(tabLayout, viewPager) { tab, position ->

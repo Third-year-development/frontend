@@ -21,20 +21,40 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="12dp">
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp">
 
+            <!-- リツイートヘッダー (リツイートの場合のみ表示) -->
+            <TextView
+                android:id="@+id/retweetHeader"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:drawablePadding="4dp"
+                android:paddingStart="28dp"
+                android:textSize="12sp"
+                android:textColor="?attr/colorOnSurfaceVariant"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <!-- ユーザアイコン -->
             <ImageView
                 android:id="@+id/whisperUserImage"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
+                android:layout_marginTop="4dp"
                 android:scaleType="centerCrop"
                 android:src="@mipmap/ic_launcher"
                 android:clickable="true"
                 android:focusable="true"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toBottomOf="@id/retweetHeader" />
 
+            <!-- ユーザ名 -->
             <TextView
                 android:id="@+id/whisperUserNameText"
                 android:layout_width="0dp"
@@ -47,6 +67,7 @@
                 app:layout_constraintStart_toEndOf="@id/whisperUserImage"
                 app:layout_constraintTop_toTopOf="@id/whisperUserImage" />
 
+            <!-- 本文 -->
             <TextView
                 android:id="@+id/whisperContentText"
                 android:layout_width="0dp"
@@ -58,9 +79,9 @@
                 app:layout_constraintStart_toEndOf="@id/whisperUserImage"
                 app:layout_constraintTop_toBottomOf="@id/whisperUserNameText" />
 
-            <!-- いいねボタンと数字を横並びLinearLayoutでまとめる -->
+            <!-- アクションボタン行 (リツイート + いいね) -->
             <LinearLayout
-                android:id="@+id/likeArea"
+                android:id="@+id/actionArea"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -69,10 +90,29 @@
                 app:layout_constraintStart_toEndOf="@id/whisperUserImage"
                 app:layout_constraintTop_toBottomOf="@id/whisperContentText">
 
+                <!-- リツイートボタン -->
+                <ImageButton
+                    android:id="@+id/retweetButton"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:padding="4dp"
+                    android:src="@android:drawable/ic_menu_rotate"
+                    android:contentDescription="リツイート" />
+
+                <TextView
+                    android:id="@+id/retweetCntText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="2dp"
+                    android:textSize="14sp" />
+
+                <!-- いいねボタン -->
                 <ImageButton
                     android:id="@+id/likeButton"
                     android:layout_width="32dp"
                     android:layout_height="32dp"
+                    android:layout_marginStart="16dp"
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:padding="4dp"
                     android:src="@android:drawable/btn_star_big_off" />

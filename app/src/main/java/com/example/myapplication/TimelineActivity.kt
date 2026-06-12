@@ -99,14 +99,34 @@ class TimelineActivity : BaseActivity() {
             for (i in 0 until jsonArray.length()) {
                 val obj = jsonArray.getJSONObject(i)
                 val userObj = obj.optJSONObject("user")
-                val userName = userObj?.optString("name") ?: obj.optString("userName", "")
+                val retweeterName = userObj?.optString("name") ?: ""
+
+                val parentObj = obj.optJSONObject("parent")
+                val isRetweet = parentObj != null
+
+                // リツイートの場合、元ささやきの情報を表示する
+                val displayUserObj = if (isRetweet) parentObj!!.optJSONObject("user") else userObj
+                val displayUserId = (displayUserObj?.optInt("id") ?: 0).toString()
+                val displayUserName = displayUserObj?.optString("name") ?: ""
+                val displayContent = if (isRetweet) parentObj!!.optString("content", "") else obj.optString("content", "")
+                val displayWhisperId = if (isRetweet) parentObj!!.optInt("id").toString() else obj.getInt("id").toString()
+
+                val sourceObj = if (isRetweet) parentObj!! else obj
+                val likeCount = sourceObj.optInt("liked_by_count", sourceObj.optInt("likedBy_count", 0))
+                val isLiked = sourceObj.optBoolean("liked_by_me", false)
+                val retweetCount = sourceObj.optInt("retweets_count", 0)
+                val isRetweeted = sourceObj.optBoolean("retweeted_by_me", false)
+
                 list.add(WhisperRowData(
-                    whisperId = obj.getInt("id").toString(),
-                    userId = (userObj?.optInt("id") ?: 0).toString(),
-                    userName = userName,
-                    content = obj.optString("content", ""),
-                    goodCount = obj.optInt("liked_by_count", obj.optInt("likedBy_count", 0)),
-                    isLiked = obj.optBoolean("liked_by_me", false)
+                    whisperId = displayWhisperId,
+                    userId = displayUserId,
+                    userName = displayUserName,
+                    content = displayContent,
+                    goodCount = likeCount,
+                    isLiked = isLiked,
+                    retweetCount = retweetCount,
+                    isRetweeted = isRetweeted,
+                    retweetedByName = if (isRetweet) retweeterName else null
                 ))
             }
             return list

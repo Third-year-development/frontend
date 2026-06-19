@@ -1,3 +1,95 @@
 <resources>
-    <string name="app_name">My Application</string>
+    <string name="app_name">Whisper</string>
+    <string name="create_user_title">&#x30E6;&#x30FC;&#x30B6;&#x4F5C;&#x6210;</string>
+    <string name="create_user_name_hint">&#x30E6;&#x30FC;&#x30B6;&#x540D;</string>
+    <string name="create_user_email_hint">&#x30E1;&#x30FC;&#x30EB;&#x30A2;&#x30C9;&#x30EC;&#x30B9;</string>
+    <string name="create_user_password_hint">&#x30D1;&#x30B9;&#x30EF;&#x30FC;&#x30C9;</string>
+    <string name="create_user_repassword_hint">&#x78BA;&#x8A8D;&#x7528;&#x30D1;&#x30B9;&#x30EF;&#x30FC;&#x30C9;</string>
+    <string name="create_user_submit_button">&#x4F5C;&#x6210;&#x3059;&#x308B;</string>
+    <string name="create_user_cancel_button">&#x30AD;&#x30E3;&#x30F3;&#x30BB;&#x30EB;</string>
+    <string name="create_user_name_required">&#x30E6;&#x30FC;&#x30B6;&#x540D;&#x3092;&#x5165;&#x529B;&#x3057;&#x3066;&#x304F;&#x3060;&#x3055;&#x3044;</string>
+    <string name="create_user_email_required">&#x30E1;&#x30FC;&#x30EB;&#x30A2;&#x30C9;&#x30EC;&#x30B9;&#x3092;&#x5165;&#x529B;&#x3057;&#x3066;&#x304F;&#x3060;&#x3055;&#x3044;</string>
+    <string name="create_user_email_invalid">&#x6B63;&#x3057;&#x3044;&#x30E1;&#x30FC;&#x30EB;&#x30A2;&#x30C9;&#x30EC;&#x30B9;&#x3092;&#x5165;&#x529B;&#x3057;&#x3066;&#x304F;&#x3060;&#x3055;&#x3044;</string>
+    <string name="create_user_password_required">&#x30D1;&#x30B9;&#x30EF;&#x30FC;&#x30C9;&#x3092;&#x5165;&#x529B;&#x3057;&#x3066;&#x304F;&#x3060;&#x3055;&#x3044;</string>
+    <string name="create_user_password_short">&#x30D1;&#x30B9;&#x30EF;&#x30FC;&#x30C9;&#x306F;6&#x6587;&#x5B57;&#x4EE5;&#x4E0A;&#x3067;&#x5165;&#x529B;&#x3057;&#x3066;&#x304F;&#x3060;&#x3055;&#x3044;</string>
+    <string name="create_user_repassword_required">&#x78BA;&#x8A8D;&#x7528;&#x30D1;&#x30B9;&#x30EF;&#x30FC;&#x30C9;&#x3092;&#x5165;&#x529B;&#x3057;&#x3066;&#x304F;&#x3060;&#x3055;&#x3044;</string>
+    <string name="create_user_password_mismatch">&#x30D1;&#x30B9;&#x30EF;&#x30FC;&#x30C9;&#x304C;&#x4E00;&#x81F4;&#x3057;&#x307E;&#x305B;&#x3093;</string>
+    <string name="create_user_not_implemented_message">&#x30E6;&#x30FC;&#x30B6;&#x4F5C;&#x6210;&#x6A5F;&#x80FD;&#x306F;&#x672A;&#x5B9F;&#x88C5;&#x3067;&#x3059;&#x3002;API&#x63A5;&#x7D9A;&#x5F8C;&#x306B;&#x6709;&#x52B9;&#x5316;&#x3057;&#x307E;&#x3059;&#x3002;</string>
+
+    <!-- Login -->
+    <string name="login_title">ログイン</string>
+    <string name="login_email_hint">メールアドレス</string>
+    <string name="login_password_hint">パスワード</string>
+    <string name="login_button">ログイン</string>
+    <string name="login_to_create_user">新規登録はこちら</string>
+    <string name="login_error_empty_email">メールアドレスを入力してください</string>
+    <string name="login_error_empty_password">パスワードを入力してください</string>
+    <string name="login_error_failed">ユーザIDまたはパスワードが違います</string>
+    <string name="login_error_network">通信エラーが発生しました</string>
+
+    <!-- Timeline -->
+    <string name="timeline_title">タイムライン</string>
+    <string name="tab_recommended">おすすめ</string>
+    <string name="tab_following">フォロー中</string>
+    <string name="timeline_empty">ささやきがありません</string>
+    <string name="timeline_error_load">タイムラインの読み込みに失敗しました</string>
+
+    <!-- Whisper Post -->
+    <string name="whisper_post_title">ささやく</string>
+    <string name="whisper_post_hint">今どんなことをささやく？</string>
+    <string name="whisper_post_button">ささやく</string>
+    <string name="whisper_post_cancel">キャンセル</string>
+    <string name="whisper_post_error_empty">ささやき内容を入力してください</string>
+    <string name="whisper_post_success">ささやきました</string>
+    <string name="whisper_post_error">投稿に失敗しました</string>
+
+    <!-- User Info -->
+    <string name="user_info_follow">フォロー</string>
+    <string name="user_info_follower">フォロワー</string>
+    <string name="user_info_follower_label">フォロワー</string>
+    <string name="user_info_follow_button">フォロー</string>
+    <string name="user_info_unfollow_button">フォロー中</string>
+    <string name="user_info_tab_whispers">ささやき</string>
+    <string name="user_info_tab_follow">フォロー %d</string>
+    <string name="user_info_tab_follower">フォロワー %d</string>
+    <string name="user_info_tab_likes">いいね</string>
+
+    <!-- Search -->
+    <string name="search_title">検索</string>
+    <string name="search_hint">検索キーワード</string>
+    <string name="search_button">検索</string>
+    <string name="search_radio_user">ユーザ</string>
+    <string name="search_radio_whisper">ささやき</string>
+    <string name="search_empty">検索結果がありません</string>
+    <string name="search_type_required">検索タイプを選択してください</string>
+    <string name="search_query_required">検索キーワードを入力してください</string>
+
+    <!-- User Edit -->
+    <string name="user_edit_title">プロフィール編集</string>
+    <string name="user_edit_name_hint">ユーザ名</string>
+    <string name="user_edit_profile_hint">プロフィール</string>
+    <string name="user_edit_change_button">変更する</string>
+    <string name="user_edit_cancel_button">キャンセル</string>
+    <string name="user_edit_success">プロフィールを更新しました</string>
+    <string name="user_edit_error">更新に失敗しました</string>
+
+    <!-- Follow List -->
+    <string name="follow_list_title_follow">フォロー一覧</string>
+    <string name="follow_list_title_follower">フォロワー一覧</string>
+
+    <!-- Whisper Detail -->
+    <string name="whisper_detail_title">ささやき詳細</string>
+
+    <!-- Navigation Drawer -->
+    <string name="nav_open">メニューを開く</string>
+    <string name="nav_close">メニューを閉じる</string>
+
+    <!-- Overflow Menu -->
+    <string name="menu_timeline">タイムライン</string>
+    <string name="menu_search">検索</string>
+    <string name="menu_whisper">ささやく</string>
+    <string name="menu_profile">プロフィール</string>
+    <string name="menu_user_edit">プロフィール編集</string>
+    <string name="menu_logout">ログアウト</string>
+
 </resources>

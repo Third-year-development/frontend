@@ -23,7 +23,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".CreateUserActivity" android:exported="false" />
-        <activity android:name=".TimelineActivity" android:exported="false" />
         <activity android:name=".WhisperPostActivity" android:exported="false" />
         <activity android:name=".UserInfoActivity" android:exported="false" />
         <activity android:name=".SearchActivity" android:exported="false" />

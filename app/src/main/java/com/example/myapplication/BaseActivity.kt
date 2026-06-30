@@ -99,7 +99,6 @@ abstract class BaseActivity : AppCompatActivity() {
         val loginUserId = prefs.getString(Constants.PREF_USER_ID, null)
 
         when (item.itemId) {
-            R.id.menu_timeline -> startActivity(Intent(this, TimelineActivity::class.java))
             R.id.menu_search   -> startActivity(Intent(this, SearchActivity::class.java))
             R.id.menu_whisper  -> startActivity(Intent(this, WhisperPostActivity::class.java))
             R.id.menu_profile  -> {

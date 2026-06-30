@@ -85,57 +85,19 @@ class UserInfoTabFragment : Fragment() {
                 val arr = root.optJSONArray(arrayKeyHint)
                     ?: root.optJSONArray("whisper_line")
                     ?: JSONArray()
-                val list = TimelineActivity.parseWhispers(arr)
+                val list = WhisperParser.parseWhispers(arr)
                 requireActivity().runOnUiThread {
                     emptyText.visibility = if (list.isEmpty()) View.VISIBLE else View.GONE
                     if (list.isEmpty()) emptyText.text = emptyMessage
-                    recyclerView.adapter = buildWhisperAdapter(list, loginUserId, recyclerView, emptyText, emptyMessage, baseEndpoint)
+                    recyclerView.adapter = buildWhisperAdapter(list)
                 }
             }
             override fun onFailure(call: Call, e: IOException) {}
         })
     }
 
-    private fun buildWhisperAdapter(
-        list: List<WhisperRowData>,
-        loginUserId: String,
-        recyclerView: RecyclerView,
-        emptyText: TextView,
-        emptyMessage: String,
-        baseEndpoint: String
-    ) = WhisperAdapter(
-        whisperList = list,
-        loginUserId = loginUserId,
-        onLikeClick = { item ->
-            val json = JSONObject().apply { put("whisper_id", item.whisperId.toIntOrNull() ?: 0) }
-            ApiClient.post(requireContext(), Constants.ENDPOINT_LIKE, json, object : Callback {
-                override fun onResponse(call: Call, response: Response) {
-                    if (!response.isSuccessful) return
-                    requireActivity().runOnUiThread {
-                        loadWhisperList(recyclerView, emptyText, loginUserId, baseEndpoint, emptyMessage)
-                    }
-                }
-                override fun onFailure(call: Call, e: IOException) {}
-            })
-        },
-        onRetweetClick = { item ->
-            ApiClient.post(requireContext(), "${Constants.ENDPOINT_RETWEET}/${item.whisperId}/retweet", JSONObject(), object : Callback {
-                override fun onResponse(call: Call, response: Response) {
-                    if (!response.isSuccessful) return
-                    requireActivity().runOnUiThread {
-                        loadWhisperList(recyclerView, emptyText, loginUserId, baseEndpoint, emptyMessage)
-                    }
-                }
-                override fun onFailure(call: Call, e: IOException) {}
-            })
-        },
-        onUserClick = { item ->
-            startActivity(Intent(requireContext(), UserInfoActivity::class.java).apply {
-                putExtra("userId", item.userId)
-            })
-        },
-        onWhisperClick = { item -> startActivity(item.toDetailIntent(requireContext())) }
-    )
+    private fun buildWhisperAdapter(list: List<WhisperRowData>) =
+        WhisperAdapter(list.toMutableList(), requireContext())
 
     private fun loadFollowList(recyclerView: RecyclerView, emptyText: TextView, baseEndpoint: String) {
         ApiClient.get(requireContext(), "$baseEndpoint/$targetUserId", object : Callback {

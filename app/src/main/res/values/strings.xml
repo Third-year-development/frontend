@@ -26,13 +26,7 @@
     <string name="login_error_empty_password">パスワードを入力してください</string>
     <string name="login_error_failed">ユーザIDまたはパスワードが違います</string>
     <string name="login_error_network">通信エラーが発生しました</string>
-
-    <!-- Timeline -->
-    <string name="timeline_title">タイムライン</string>
-    <string name="tab_recommended">おすすめ</string>
-    <string name="tab_following">フォロー中</string>
-    <string name="timeline_empty">ささやきがありません</string>
-    <string name="timeline_error_load">タイムラインの読み込みに失敗しました</string>
+    <string name="timeline_removed_message">タイムライン画面は学習用に未実装です</string>
 
     <!-- Whisper Post -->
     <string name="whisper_post_title">ささやく</string>
@@ -85,7 +79,6 @@
     <string name="nav_close">メニューを閉じる</string>
 
     <!-- Overflow Menu -->
-    <string name="menu_timeline">タイムライン</string>
     <string name="menu_search">検索</string>
     <string name="menu_whisper">ささやく</string>
     <string name="menu_profile">プロフィール</string>

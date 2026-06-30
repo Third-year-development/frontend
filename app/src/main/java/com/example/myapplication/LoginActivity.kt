@@ -43,9 +43,7 @@ class LoginActivity : AppCompatActivity() {
         val token = prefs.getString(Constants.PREF_TOKEN, null)
         val expiry = prefs.getLong(Constants.PREF_LOGIN_EXPIRY, 0L)
         if (token != null && System.currentTimeMillis() < expiry) {
-            startActivity(Intent(this, TimelineActivity::class.java))
-            finish()
-            return
+            Toast.makeText(this, getString(R.string.timeline_removed_message), Toast.LENGTH_SHORT).show()
         }
 
         loginButton.setOnClickListener { attemptLogin() }
@@ -98,8 +96,11 @@ class LoginActivity : AppCompatActivity() {
                 }
 
                 runOnUiThread {
-                    startActivity(Intent(this@LoginActivity, TimelineActivity::class.java))
-                    finish()
+                    Toast.makeText(
+                        this@LoginActivity,
+                        getString(R.string.timeline_removed_message),
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             }
 

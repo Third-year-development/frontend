@@ -1,16 +1,20 @@
 package com.example.myapplication
 
-import android.media.Image
-import org.w3c.dom.Text
-import java.nio.file.Path
-
-
 data class WhisperRowData(
+    val whisperId: String,
     val userId: String,
     val userName: String,
-    val whisperNo:Int,
-    val whisperText: String,
-    val imagePath: String,
-    var isLiked: Boolean
+    val content: String,
+    val goodCount: Int = 0,
+    var isLiked: Boolean = false,
+    val retweetCount: Int = 0,
+    val isRetweeted: Boolean = false,
+    val retweetedByName: String? = null,
+    val imagePath: String = ""
+) {
+    val whisperNo: Int
+        get() = whisperId.toIntOrNull() ?: 0
 
-)
+    val whisperText: String
+        get() = content
+}

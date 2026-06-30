@@ -120,25 +120,14 @@ class SearchActivity : BaseActivity() {
                         val body = response.body?.string() ?: return
                         val root = JSONObject(body)
                         val jsonArray = root.optJSONArray("whisper") ?: JSONArray()
-                        val whisperList = TimelineActivity.parseWhispers(jsonArray)
+                        val whisperList = WhisperParser.parseWhispers(jsonArray)
                         runOnUiThread {
                             if (whisperList.isEmpty()) {
                                 searchRecycle.visibility = View.GONE
                                 emptyText.visibility = View.VISIBLE
                             } else {
                                 emptyText.visibility = View.GONE
-                                searchRecycle.adapter = WhisperAdapter(
-                                    whisperList, loginUserId,
-                                    onLikeClick = {},
-                                    onUserClick = { item ->
-                                        startActivity(android.content.Intent(this@SearchActivity, UserInfoActivity::class.java).apply {
-                                            putExtra("userId", item.userId)
-                                        })
-                                    },
-                                    onWhisperClick = { item ->
-                                        startActivity(item.toDetailIntent(this@SearchActivity))
-                                    }
-                                )
+                                searchRecycle.adapter = WhisperAdapter(whisperList.toMutableList(), this@SearchActivity)
                                 searchRecycle.visibility = View.VISIBLE
                             }
                         }

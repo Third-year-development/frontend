@@ -1,6 +1,5 @@
 package com.example.myapplication
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Patterns
 import android.view.inputmethod.EditorInfo
@@ -92,7 +91,7 @@ class CreateUserActivity : AppCompatActivity() {
                     }
                     return
                 }
-                // 登録成功後はトークンを保存してタイムラインへ
+                // 登録成功後はトークンを保存する
                 val body = response.body?.string() ?: return
                 val result = JSONObject(body)
                 val token = result.getString("token")
@@ -111,9 +110,7 @@ class CreateUserActivity : AppCompatActivity() {
 
                 runOnUiThread {
                     Toast.makeText(this@CreateUserActivity, "ユーザを作成しました", Toast.LENGTH_SHORT).show()
-                    val intent = Intent(this@CreateUserActivity, TimelineActivity::class.java)
-                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                    startActivity(intent)
+                    finish()
                 }
             }
             override fun onFailure(call: Call, e: IOException) {

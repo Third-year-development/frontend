@@ -13,23 +13,48 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication">
+        <activity
+            android:name=".OverFlowMenuActivity"
+            android:exported="false" />
+        <activity
+            android:name=".TimelineActivity"
+            android:exported="true" >
 
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+    </activity>
         <activity
             android:name=".LoginActivity"
             android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+
         </activity>
-        <activity android:name=".CreateUserActivity" android:exported="false" />
-        <activity android:name=".WhisperPostActivity" android:exported="false" />
-        <activity android:name=".UserInfoActivity" android:exported="false" />
-        <activity android:name=".SearchActivity" android:exported="false" />
-        <activity android:name=".UserEditActivity" android:exported="false" />
-        <activity android:name=".FollowListActivity" android:exported="false" />
-        <activity android:name=".FollowFollowerActivity" android:exported="false" />
-        <activity android:name=".WhisperDetailActivity" android:exported="false" />
+        <activity
+            android:name=".CreateUserActivity"
+            android:exported="false" />
+        <activity
+            android:name=".WhisperPostActivity"
+            android:exported="false" />
+        <activity
+            android:name=".UserInfoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".SearchActivity"
+            android:exported="false" />
+        <activity
+            android:name=".UserEditActivity"
+            android:exported="false" />
+        <activity
+            android:name=".FollowListActivity"
+            android:exported="false" />
+        <activity
+            android:name=".FollowFollowerActivity"
+            android:exported="false" />
+        <activity
+            android:name=".WhisperDetailActivity"
+            android:exported="false" />
     </application>
 
 </manifest>
